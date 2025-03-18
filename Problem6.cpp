@@ -23,8 +23,7 @@ void solve()
 
 int main()
 {
-    freopen("input1.in","r",stdin);
-    freopen("output1.out","w",stdout);
+
     int t;
     cin>>t;
     cin.ignore();
