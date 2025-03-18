@@ -5,8 +5,7 @@ using namespace std;
 void solve()
 {
     string s;
-    cin>>s;
-
+    getline(cin,s);
     int c=0;
     for(auto &k:s)
     {
@@ -22,8 +21,6 @@ void solve()
 
 int main()
 {
-    freopen("input1.in","r",stdin);
-    freopen("output1.out","w",stdout);
     int t;
     cin>>t;
     cin.ignore();
