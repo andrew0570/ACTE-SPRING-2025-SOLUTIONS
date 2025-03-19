@@ -1,6 +1,4 @@
-# numcases=int(input())
 anslist=[]
-# for _ in range(numcases):
 d,w=map(int,input().split())
 correctwords={}
 for i in range(d):
