@@ -1,14 +1,22 @@
-def dpsolve(n,k,coins):
-    INF=float('inf')
-    dp=[INF]*(K+1) #initialize dp list
-    dp[0]=0 #this is the base case of 0 coins needed to make 0
-    for coin in coins: #loops through coins in list
-        #go backwards to ensure each coin is used only once
-        for i in range(K,coin-1,-1):
-            if dp[i-coin]!=INF: #make sure we can make (i - coin)
-                dp[i]=min(dp[i],dp[i-coin]+1) #get the smaller value for optimal solution
-    return dp[K] if dp[K]!=INF else -1  #if K can't be formed then return -1
-
-n,k=map(int,input().split())
+N,K=map(int,input().split()) #take in input
 coins=list(map(int,input().split()))
-print(dpsolve(n,k,coins))
+coins.sort(reverse=True) #sort coins in decending order
+sum=0
+for i in range(len(coins)):
+    if coins[i]>K: #no point in checking coins that are greater
+        continue
+    elif coins[i]==K: #automatically stop when there is a coin of K
+        print("1")
+        break
+    sum=coins[i] #set sum to current value < K
+    count=1 #counts coins
+    j=i+1 #another index variable for indicies after current index
+    while(sum<K and j<len(coins)): #loops to add up values after current index
+        sum+=coins[j] #loops to add up values after current index
+        j+=1 #update index
+        count+=1 #update num of coins
+    if sum==K: #make sure sum is not greater than K
+        print(count)
+        break
+    #otherwise continue to loop for each coin until you
+    #get correct combination of numbers
