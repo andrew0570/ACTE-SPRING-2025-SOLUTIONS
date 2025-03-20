@@ -9,7 +9,7 @@ for i in range(n):
         maxsum=currsum #update max sum
         start=s #update start and end indicies for subarray
         end=i
-    if currsum<0: #negative number means sum will not increase
+    if currsum<0:
         currsum=0 #reset current sum
         s=i+1 #update starting index
 print(maxsum)
