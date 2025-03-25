@@ -1,0 +1,78 @@
+// Solution to Problem 18 - Important and Convenient Roads
+//  
+//   - uses kruscals algorithm and a union set to efficiently create minimum spanning trees
+//   - make a base MST to get smallest MST possible
+//   - make an MST with and without every edge
+//       -> important edge if we can't make smallest MST without
+//       -> convenient edge if we can make smallest MST with and without
+//       -> neither if we can't make smallest MST with
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int PARENT(map<int,int> &parent, int i){
+    if(parent[i]==i) return i;
+    return PARENT(parent,parent[i]);
+}
+
+int MST(map<int,int> parent, int n, int curr, int x, priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq, vector<vector<int>> &edges){
+    int a,b,dst;
+    while(n>1&&!pq.empty()){
+        if(x==pq.top().second){ pq.pop(); continue; }
+        dst=pq.top().first, a=edges[pq.top().second][0], b=edges[pq.top().second][1];
+        pq.pop();
+        int A=PARENT(parent,a), B=PARENT(parent,b);
+        if(A!=B){
+            curr+=dst;
+            parent[A]=B;
+            n--;
+        }
+    }
+    return (n>1)?INT_MAX:curr;
+}
+
+int main(){
+    // INPUT
+    int n;
+    vector<vector<int>> edges;
+
+    cin>>n;
+    int k,a,b,w;
+    cin>>k;
+    for(int i=0;i<k;i++){
+        cin>>a>>b>>w;
+        edges.push_back({a,b,w});
+    }
+
+
+    vector<int> important,convenient,unnecessary;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+    map<int,int> parent;
+    k=edges.size();
+    for(int i=0;i<k;i++) pq.push({edges[i][2],i});
+    for(int i=0;i<n;i++) parent[i]=i;
+
+    int mn = MST(parent,n,0,-1,pq,edges);
+
+    int with, wout;
+    for(int i=0;i<k;i++){
+        wout=MST(parent,n,0,i,pq,edges);
+        parent[edges[i][0]]=edges[i][1];
+        with=MST(parent,n-1,edges[i][2],-1,pq,edges);
+        parent[edges[i][0]]=edges[i][0];
+        if(with!=mn) unnecessary.push_back(i);
+        else if(wout!=mn) important.push_back(i);
+        else convenient.push_back(i);
+    }
+
+    // OUTPUT
+    cout<<"Important"<<endl;
+    for(int i:important) cout<<i<<endl;
+    cout<<"Convenient"<<endl;
+    for(int i:convenient) cout<<i<<endl;
+    cout<<"Unnecessary"<<endl;
+    for(int i:unnecessary) cout<<i<<endl;
+
+    return 0;
+}
