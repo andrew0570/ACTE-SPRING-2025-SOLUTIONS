@@ -11,7 +11,7 @@ using ll=long long;
 int f(int n)
 {
     // return n+((n+2)*(n+2))+((n+1)*(n+1))-1;
-    return (2*n*n) + (7*n) + 4; //this statement and the above statements are equivalent
+    return (2*n*n) + (7*n) + 4; //this statement and the above commented out expression is equivalent
 }
 
 void solve()
@@ -25,13 +25,11 @@ void solve()
 
 int main()
 {
-    freopen("input1.in","r",stdin);
-    freopen("output1.out","w",stdout);
-
     int t;
     cin>>t;
     while(t--)
     {
         solve();
     }
+    return 0;
 }
