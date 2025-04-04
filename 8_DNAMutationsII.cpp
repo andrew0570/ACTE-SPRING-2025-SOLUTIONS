@@ -14,7 +14,7 @@ void solve()
             c+=1;
         }
     }
-    cout<<pow(3,c)<<endl;
+    cout<<pow(4,c)<<endl;
 }
 
 
