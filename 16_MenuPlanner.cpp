@@ -7,21 +7,18 @@ using namespace std;
 
 int main() 
 {
-    
     int n;
     cin>>n;
 
     vector<string> recipes(n);
     unordered_map<string, vector<string>> ingredients;
-    unordered_map<string, int> inDeg;
+    unordered_map<string, int> inDeg; //we will be using indegree method for our topological sort, but there are other ways
+    
     unordered_map<string, vector<string>> rgraph;
 
     //get input
     for (int i=0; i<n; i++) 
-    {
-        cin>>recipes[i];
-        inDeg[recipes[i]]=0;
-    }
+    { cin>>recipes[i]; inDeg[recipes[i]]=0; }
 
     for (int i=0; i<n; i++)  //read in your ingredients and create a graph with an adjacency list
     {
@@ -50,9 +47,8 @@ int main()
         free.insert(temp); 
         q.push(temp); 
     }
-
+    
     vector<string>result;
-
     while (!q.empty()) //apply bfs to do the topological sort
     {
         string current=q.front();
@@ -61,8 +57,7 @@ int main()
         {
             inDeg[recipe]-=1;
             if (inDeg[recipe]==0)
-            {
-                //these are the free ingredients that you can use.
+            {   //these are the free ingredients that you can use
                 free.insert(recipe);
                 q.push(recipe);
                 result.pb(recipe);
@@ -72,6 +67,5 @@ int main()
 
     sort(all(result)); //remember to return in alphabetical order
     for (const string& r:result){cout<<r<<endl;}
-
     return 0;
 }
