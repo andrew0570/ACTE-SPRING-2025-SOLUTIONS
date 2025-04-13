@@ -53,28 +53,25 @@ void dfs (int y, int x) {
 }
 
 int main() {
-    cin >> n >> m;
+    cin>>n>>m;
     //creating grid from input
-    for (int i = 0 ; i < n ; i++) 
-    {
-      for (int j = 0 ; j < m ; j++) 
-      {
+    for (int i = 0 ; i < n ; i++) {
+      for (int j = 0 ; j < m ; j++) {
         cin >> grid[i][j]; 
         visited[i][j] = false; //sets all cells status to false initially
       }
     }
+
     //traverses maze
-    for (int i = 0 ; i < n ; i++) 
-    {
-      for (int j = 0 ; j < m ; j++) 
-      {
-        if (grid[i][j] == 'V' && !(visited[i][j])) //checks for floors and make sure its not visited
-        {
+    for (int i = 0 ; i < n ; i++) {
+      for (int j = 0 ; j < m ; j++) {
+        if (grid[i][j] == 'V' && !(visited[i][j])) {
+          //checks for floors and make sure its not visited
           dfs(i, j); //calls dfs to search for all surrounding cells that are floors
           numrooms++; //increases count of rooms
         }
       }
     }
-    cout << numrooms << endl; //prints answer
+    cout<<numrooms<<endl; //prints answer
     return 0; 
 }
